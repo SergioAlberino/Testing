@@ -15,10 +15,25 @@ void Leds_Create(uint16_t *puerto) {
 }
 
 void Leds_On(uint8_t led) {
-   *direccion |= LedsToMask(led);
+    if(led<0 || led>16)
+    {
+        // tratamiento de error
+    }
+    else
+    {
+    *direccion |= LedsToMask(led);
+    }   
 }
 void Leds_Off(uint8_t led) {
+    if(led<0 || led>16)
+    {
+        // tratamiento de error
+    }
+    else
+    {
     *direccion &= ~LedsToMask(led);
+    }  
+
 }
 
 void Leds_All_On(void) {
@@ -27,8 +42,14 @@ void Leds_All_On(void) {
 void Leds_All_Off(void) {
     *direccion = LEDS_ALL_OFF;
 }
-uint16_t Leds_state(void) {
-    return *direccion;
-}
+// uint16_t Leds_state(void) {
+//     return *direccion;
+// }
+// }
 
+uint16_t Leds_state(uint8_t led) {  
+    uint16_t estado;
+    estado= *direccion & LedsToMask(led);
+    return estado;
+}
 

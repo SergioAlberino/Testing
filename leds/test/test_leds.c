@@ -56,11 +56,27 @@ Leds_On(4); //enciendo algunos leds
 Leds_All_Off();
 TEST_ASSERT_EQUAL_HEX16(0,ledsVirtuales);
 }
+
 //se pueden saber el estado de los leds 
 void test_estado_de_los_leds(void){ 
 uint16_t estado;
-Leds_On(4);
-Leds_Off(3);
-estado= Leds_state();
+Leds_On(5);
+estado= Leds_state(5);
 TEST_ASSERT_EQUAL_HEX16( estado,ledsVirtuales);
+}
+
+//Revisar lìmites de los parametros  
+void test_lim_parametros(void){ 
+Leds_All_Off();
+Leds_On(1);
+Leds_On(16);
+TEST_ASSERT_EQUAL_HEX16(0x8001,ledsVirtuales);
+}
+
+//Revisar parametros fuera de lìmites  
+void test_param_fuera_limite(void){ 
+Leds_All_Off();
+Leds_On(0);
+Leds_On(17);
+TEST_ASSERT_EQUAL_HEX16(0,ledsVirtuales);
 }
