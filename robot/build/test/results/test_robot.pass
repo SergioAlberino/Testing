@@ -4,35 +4,35 @@
   :file: test_robot.c
 :successes:
 - :test: test_state_machine_init
-  :line: 52
+  :line: 56
   :message: ''
   :unity_test_time: 0
 - :test: test_state_initial
-  :line: 58
+  :line: 62
   :message: ''
   :unity_test_time: 0
 - :test: test_state_go_forward
-  :line: 64
+  :line: 68
   :message: ''
   :unity_test_time: 0
-- :test: test_state_go_turn
-  :line: 71
+- :test: test_state_go_turn_right
+  :line: 75
   :message: ''
   :unity_test_time: 0
-- :test: test_state_go_forward_again
-  :line: 82
+- :test: test_state_go_turn_left
+  :line: 89
   :message: ''
   :unity_test_time: 0
-:failures:
-- :test: test_state_go_turn_othes_side
-  :line: 96
-  :message: Expected 0 Was 2. vuelve a ir para FORWARD
+- :test: test_state_go_stopped_again
+  :line: 101
+  :message: ''
   :unity_test_time: 0
+:failures: []
 :ignores: []
 :counts:
   :total: 6
-  :passed: 5
-  :failed: 1
+  :passed: 6
+  :failed: 0
   :ignored: 0
 :stdout: []
-:time: 0.0042245249496772885
+:time: 0.007547785062342882

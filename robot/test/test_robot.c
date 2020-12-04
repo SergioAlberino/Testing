@@ -17,6 +17,9 @@
 uint8_t state;
 //gpioMap_t sensoresVirtuales[]={sensorF,sensorR,button};
 bool_t ret;
+bool_t valSensorF;
+bool_t valSensorR;
+bool_t valPushButton;
 
 // States
 typedef enum{ 
@@ -44,8 +47,9 @@ void stearDown(void){
 // Test de la inicialización
 // TTest inicio en estado STOPPED
 // Test de paso a estado FORWARD
-// Test secuencia de estados STOPPED-FORWARD-GIRO
-
+// Test secuencia de estados GIRO TURN_R, obstaculo al frente
+// Test secuencia de estados GIRO TURN_L, obstaculo al frente y lateral
+// Test se detiene despues de haber arrancado
 
 
 // Test de la inicialización
@@ -62,38 +66,47 @@ void test_state_initial(void){
 
 // Test de paso a estado FORWARD
 void test_state_go_forward(void){
-	statemachineInit();
-	valPushButton=true;
+	valPushButton=true;	// se presiona pushButton
+	statemachineUpdate();	// pasa a FORWARD
 	TEST_ASSERT_EQUAL_MESSAGE(0, statemachineUpdate(), "paso a FORWARD ");
 }
 
-// Test secuencia de estados STOPPED-FORWARD-GIRO obstaculo al frente
-void test_state_go_turn(void){
-	statemachineInit();
-	valPushButton=true;
+// Test secuencia de estados GIRO TURN_R, obstaculo al frente
+void test_state_go_turn_right(void){
+
+	valPushButton=true;	// se presiona pushButton
+	statemachineUpdate();	// pasa a FORWARD
+	valPushButton=false;	// se libera pushButton	
 	statemachineUpdate();
-	valPushButton=false;	
+	valSensorF=true;	// sensor de frente detecta obstaculo
+	valSensorR=false;	// sensor lateral no detecta
 	statemachineUpdate();
-	valSensorF=true;
-	valSensorR=false;
-	TEST_ASSERT_EQUAL_MESSAGE(2, statemachineUpdate(), "paso a GIRO ");
-}
-// Test se libera obstaculo al frente
-void test_state_go_forward_again(void){
-	valSensorF=false;
-	TEST_ASSERT_EQUAL_MESSAGE(0, statemachineUpdate(), "vuelve a ir para FORWARD ");
+	TEST_ASSERT_EQUAL_MESSAGE(1, statemachineUpdate(), "TURN_R ");
 }
 
-// Test se libera obstaculo al frente
-void test_state_go_turn_othes_side(void){
-	statemachineInit();
-	valPushButton=true;
+
+// Test secuencia de estados GIRO TURN_L, obstaculo al frente y lateral
+void test_state_go_turn_left(void){
+	valPushButton=true;	// se presiona pushButton
+	statemachineUpdate();	// pasa a FORWARD
+	valPushButton=false;	// se libera pushButton
 	statemachineUpdate();
-	valPushButton=false;	
+	valSensorF=true;	// sensor de frente detecta obstaculo
+	valSensorR=true;	// sensor lateral activado
 	statemachineUpdate();
-	valSensorF=true;
-	valSensorR=true;
-	TEST_ASSERT_EQUAL_MESSAGE(0, statemachineUpdate(), "vuelve a ir para FORWARD ");
+	TEST_ASSERT_EQUAL_MESSAGE(2, statemachineUpdate(), "TURN_L ");
+}
+
+// Test se detiene despues de haber arrancado
+void test_state_go_stopped_again(void){
+
+	valPushButton=true;	// se presiona pushButton
+	statemachineUpdate();	// pasa a FORWARD
+	valPushButton=false;	// se libera pushButton
+	statemachineUpdate();
+	valPushButton=true;	// se presiona pushButton
+	statemachineUpdate();	// pasa a STOPPED
+	TEST_ASSERT_EQUAL_MESSAGE(3, statemachineUpdate(), "paso a FORWARD - STOPPED ");
 }
 
 

@@ -16,9 +16,9 @@ extern void tearDown(void);
 extern void test_state_machine_init(void);
 extern void test_state_initial(void);
 extern void test_state_go_forward(void);
-extern void test_state_go_turn(void);
-extern void test_state_go_forward_again(void);
-extern void test_state_go_turn_othes_side(void);
+extern void test_state_go_turn_right(void);
+extern void test_state_go_turn_left(void);
+extern void test_state_go_stopped_again(void);
 
 
 /*=======Mock Management=====*/
@@ -92,12 +92,12 @@ static void run_test(UnityTestFunction func, const char* name, int line_num)
 int main(void)
 {
   UnityBegin("test_robot.c");
-  run_test(test_state_machine_init, "test_state_machine_init", 52);
-  run_test(test_state_initial, "test_state_initial", 58);
-  run_test(test_state_go_forward, "test_state_go_forward", 64);
-  run_test(test_state_go_turn, "test_state_go_turn", 71);
-  run_test(test_state_go_forward_again, "test_state_go_forward_again", 82);
-  run_test(test_state_go_turn_othes_side, "test_state_go_turn_othes_side", 88);
+  run_test(test_state_machine_init, "test_state_machine_init", 56);
+  run_test(test_state_initial, "test_state_initial", 62);
+  run_test(test_state_go_forward, "test_state_go_forward", 68);
+  run_test(test_state_go_turn_right, "test_state_go_turn_right", 75);
+  run_test(test_state_go_turn_left, "test_state_go_turn_left", 89);
+  run_test(test_state_go_stopped_again, "test_state_go_stopped_again", 101);
 
   CMock_Guts_MemFreeFinal();
   return UnityEnd();

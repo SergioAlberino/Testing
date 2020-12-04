@@ -15,7 +15,7 @@
 
 
 #define sensorF TEC3
-#define sensorR TEC4
+#define sensorR TEC2
 #define button TEC1
 
 /*=====[Private function-like macros]========================================*/
@@ -42,7 +42,7 @@ void sensorsInit( void )
 void sensorsUpdate( void)
 {
 	valSensorF = !gpioRead( sensorF );
-	valSensorR = !gpioRead( sensorR);
+	//valSensorR = !gpioRead( sensorR);
 	valPushButton = !gpioRead( button );
 }
 

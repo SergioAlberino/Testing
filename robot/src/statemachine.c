@@ -40,7 +40,7 @@ typedef enum{
 /*=====[Definitions of public global variables]==============================*/
 
 int8_t  contador=0;
-int8_t  pushCont=2;
+int8_t  pushCont=3;
 
 /*=====[Definitions of private global variables]=============================*/
 

@@ -21,6 +21,24 @@ _Bool
 
 
 
+_Bool 
+
+      valSensorF;
+
+
+
+_Bool 
+
+      valSensorR;
+
+
+
+_Bool 
+
+      valPushButton;
+
+
+
 
 
 typedef enum{
@@ -77,7 +95,7 @@ void test_state_machine_init(void){
 
 
 
- do {if ((statemachineInit())) {} else {UnityFail( ((("Se inicializò correctamente "))), (UNITY_UINT)((UNITY_UINT)(54)));}} while(0);
+ do {if ((statemachineInit())) {} else {UnityFail( ((("Se inicializò correctamente "))), (UNITY_UINT)((UNITY_UINT)(58)));}} while(0);
 
 }
 
@@ -89,7 +107,7 @@ void test_state_initial(void){
 
 
 
- UnityAssertEqualNumber((UNITY_INT)((3)), (UNITY_INT)((statemachineUpdate())), (("Se inicializo en STOPPED ")), (UNITY_UINT)(60), UNITY_DISPLAY_STYLE_INT);
+ UnityAssertEqualNumber((UNITY_INT)((3)), (UNITY_INT)((statemachineUpdate())), (("Se inicializo en STOPPED ")), (UNITY_UINT)(64), UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -99,15 +117,15 @@ void test_state_initial(void){
 
 void test_state_go_forward(void){
 
- statemachineInit();
-
  valPushButton=
 
               1
 
                   ;
 
- UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((statemachineUpdate())), (("paso a FORWARD ")), (UNITY_UINT)(67), UNITY_DISPLAY_STYLE_INT);
+ statemachineUpdate();
+
+ UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((statemachineUpdate())), (("paso a FORWARD ")), (UNITY_UINT)(71), UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -115,9 +133,9 @@ void test_state_go_forward(void){
 
 
 
-void test_state_go_turn(void){
+void test_state_go_turn_right(void){
 
- statemachineInit();
+
 
  valPushButton=
 
@@ -147,21 +165,9 @@ void test_state_go_turn(void){
 
                 ;
 
- UnityAssertEqualNumber((UNITY_INT)((2)), (UNITY_INT)((statemachineUpdate())), (("paso a GIRO ")), (UNITY_UINT)(79), UNITY_DISPLAY_STYLE_INT);
+ statemachineUpdate();
 
-}
-
-
-
-void test_state_go_forward_again(void){
-
- valSensorF=
-
-           0
-
-                ;
-
- UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((statemachineUpdate())), (("vuelve a ir para FORWARD ")), (UNITY_UINT)(84), UNITY_DISPLAY_STYLE_INT);
+ UnityAssertEqualNumber((UNITY_INT)((1)), (UNITY_INT)((statemachineUpdate())), (("TURN_R ")), (UNITY_UINT)(84), UNITY_DISPLAY_STYLE_INT);
 
 }
 
@@ -169,9 +175,9 @@ void test_state_go_forward_again(void){
 
 
 
-void test_state_go_turn_othes_side(void){
 
- statemachineInit();
+
+void test_state_go_turn_left(void){
 
  valPushButton=
 
@@ -201,6 +207,44 @@ void test_state_go_turn_othes_side(void){
 
                ;
 
- UnityAssertEqualNumber((UNITY_INT)((0)), (UNITY_INT)((statemachineUpdate())), (("vuelve a ir para FORWARD ")), (UNITY_UINT)(96), UNITY_DISPLAY_STYLE_INT);
+ statemachineUpdate();
+
+ UnityAssertEqualNumber((UNITY_INT)((2)), (UNITY_INT)((statemachineUpdate())), (("TURN_L ")), (UNITY_UINT)(97), UNITY_DISPLAY_STYLE_INT);
+
+}
+
+
+
+
+
+void test_state_go_stopped_again(void){
+
+
+
+ valPushButton=
+
+              1
+
+                  ;
+
+ statemachineUpdate();
+
+ valPushButton=
+
+              0
+
+                   ;
+
+ statemachineUpdate();
+
+ valPushButton=
+
+              1
+
+                  ;
+
+ statemachineUpdate();
+
+ UnityAssertEqualNumber((UNITY_INT)((3)), (UNITY_INT)((statemachineUpdate())), (("paso a FORWARD - STOPPED ")), (UNITY_UINT)(109), UNITY_DISPLAY_STYLE_INT);
 
 }
