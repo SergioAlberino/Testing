@@ -1,0 +1,11 @@
+---
+src/statemachine.c:
+- TEST
+build/test/mocks/mock_sapi_gpio.c:
+- TEST
+src/sensors.c:
+- TEST
+src/motorDrive.c:
+- TEST
+build/test/mocks/mock_sapi_pwm.c:
+- TEST
