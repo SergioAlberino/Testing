@@ -4,7 +4,8 @@
 #define LED_OFFSET      1
 #define LSB             1
 #define LedsToMask(led)   (LSB<< (led-LED_OFFSET))
-
+#define MAX_LED      	16
+#define MIN_LED      	0
 static uint16_t *direccion;
 
 
@@ -15,7 +16,7 @@ void Leds_Create(uint16_t *puerto) {
 }
 
 void Leds_On(uint8_t led) {
-    if(led<0 || led>16)
+    if(check_Leds(led)==false)
     {
         // tratamiento de error
     }
@@ -25,7 +26,7 @@ void Leds_On(uint8_t led) {
     }   
 }
 void Leds_Off(uint8_t led) {
-    if(led<0 || led>16)
+    if(check_Leds(led)==false)
     {
         // tratamiento de error
     }
@@ -42,14 +43,38 @@ void Leds_All_On(void) {
 void Leds_All_Off(void) {
     *direccion = LEDS_ALL_OFF;
 }
+
+bool check_Leds(uint8_t led) {
+    if(led<MIN_LED || led>MAX_LED)
+    {
+       return false;
+    }
+    else
+    {
+       return true;
+    }   
+}
+
+bool Leds_state(uint8_t led) {  
+    uint16_t estado;
+    estado= *direccion & LedsToMask(led);
+    if(estado==0)
+    {
+       return false;
+    }
+    else
+    {
+       return true;
+    }   
+}
+
+
+
+
 // uint16_t Leds_state(void) {
 //     return *direccion;
 // }
 // }
 
-uint16_t Leds_state(uint8_t led) {  
-    uint16_t estado;
-    estado= *direccion & LedsToMask(led);
-    return estado;
-}
+
 

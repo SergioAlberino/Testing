@@ -37,10 +37,10 @@ Leds_Off(3);
 TEST_ASSERT_EQUAL_HEX16(1 <<3,ledsVirtuales);
 }
 
-//se puede prender un led individual
+//no se puede prender un led que no existe
 void test_prender_led_que_no_existe(void){
-Leds_On(1);
-TEST_ASSERT_EQUAL_HEX16(1,ledsVirtuales);
+Leds_On(18);
+TEST_ASSERT_EQUAL_HEX16(0,ledsVirtuales);
 }
 
 //se pueden prender todos los leds a la vez
@@ -58,11 +58,16 @@ TEST_ASSERT_EQUAL_HEX16(0,ledsVirtuales);
 }
 
 //se pueden saber el estado de los leds 
-void test_estado_de_los_leds(void){ 
-uint16_t estado;
+void test_estado_de_los_leds_om(void){ 
 Leds_On(5);
-estado= Leds_state(5);
-TEST_ASSERT_EQUAL_HEX16( estado,ledsVirtuales);
+TEST_ASSERT_TRUE_MESSAGE(Leds_state(5), "està encendido ");
+}
+
+//se pueden saber el estado de los leds 
+void test_estado_de_los_leds_off(void){ 
+Leds_On(7);
+Leds_Off(7);
+TEST_ASSERT_FALSE_MESSAGE(Leds_state(7), "està encendido ");
 }
 
 //Revisar lìmites de los parametros  
